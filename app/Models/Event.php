@@ -23,6 +23,9 @@ class Event extends Model
 
     public function placesRestantes(){
         return $this->jauge_max - $this->reservations()->count();
-        
+
+    }
+    public function estComplet(){
+        return $this->placesRestantes() <=0;
     }
 }
