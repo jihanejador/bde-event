@@ -25,6 +25,16 @@ class EventSeeder extends Seeder
                 'jauge_max' => 50,
                 'user_id' => $admin->id,
             ]);
+            Event::create([
+                'titre' => 'Tournoi Gaming E-Sport',
+                'description' => 'Compétition FC24 et Valorant inter-filières.',
+                'date' => '2026-10-05',
+                'heure' => '14:00',
+                'lieu' => 'Salle Informatique 3',
+                'prix' => 0.00, 
+                'jauge_max' => 16,
+                'user_id' => $admin->id,
+            ]);
         }
     }
 }
