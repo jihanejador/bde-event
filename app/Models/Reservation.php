@@ -16,4 +16,13 @@ class Reservation extends Model
     public function event(){
         return $this->belongsTo(Event::class);
     }
+    protected static function boot(){
+        parent::boot();
+
+        static::creating(function ($reservation){
+            if (empty($reservation->numero_reservation)){
+                $reservation->numero_reservation = 'BDE-2026'.strtoupper(Str::random(5));
+            }
+        });
+    }
 }
