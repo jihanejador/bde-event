@@ -13,6 +13,11 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        User::create([
+            'nom' => 'Admin BDE',
+            'email' => 'admin@bde.com',
+            'password' =>Hash::make('password123'),
+            'role' => 'admin',
+        ]);
     }
 }
