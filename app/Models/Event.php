@@ -20,4 +20,9 @@ class Event extends Model
     public function reservations(){
         return $this->hasMany(Reservation::class);
     }
+
+    public function placesRestantes(){
+        return $this->jauge_max - $this->reservations()->count();
+        
+    }
 }
