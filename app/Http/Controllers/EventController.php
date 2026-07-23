@@ -22,4 +22,21 @@ class EventController extends Controller
         }
         return view('admin.events.create');
     }
+
+    public function store(Request $request){
+        if(auth()->user()->role !== 'admin'){
+            abort(403, 'Acces refuse : Espace reserve a l\'admin.');
+
+        }
+        $request->validate([
+            'titre' => 'required',
+            'description' => 'required',
+            'date' => 'required',
+            'heure' => 'required',
+            'lieu' => 'required',
+            'prix' => 'required|numeric',
+            'jauge_max' => 'required|integer|min:1',
+        ]);
+        
+    }
 }
