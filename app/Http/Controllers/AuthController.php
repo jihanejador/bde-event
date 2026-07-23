@@ -25,4 +25,13 @@ class AuthController extends Controller
             'email' => 'Ces identifiants ne correspondent pas a nos enregistrements.',
         ])->onlyInput('email');
     }
+
+    public function logout(Request $request){
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/login');
+    }
 }
