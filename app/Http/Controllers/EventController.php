@@ -11,5 +11,8 @@ class EventController extends Controller
         if(auth()->user()->role !== 'admin'){
             abort(403, 'Acces refuse : Espace reserve a l\'admin.');
         }
+
+        $events = Event::withCount('reservations')->latest()->get();
+        return view('admin.events.index', compact('events'));
     }
 }
