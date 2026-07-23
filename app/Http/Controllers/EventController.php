@@ -37,6 +37,17 @@ class EventController extends Controller
             'prix' => 'required|numeric',
             'jauge_max' => 'required|integer|min:1',
         ]);
-        
+
+        Event::create([
+            'titre' => $request->titre,
+            'description' => $request->description,
+            'date' => $request->date,
+            'heure' => $request->heure,
+            'lieu' => $request->lieu,
+            'prix' => $request->prix,
+            'jauge_max' => $request->jauge_max,
+            'user_id' => auth()->id(),
+        ]);
+        return redirect('/admin/events')->with('success', 'Événement créé !');
     }
 }
