@@ -18,8 +18,12 @@ class AuthController extends Controller
         ]);
         if(Auth::attempt($credentials)){
             $request->session()->regenerate();
-            return redirect()->intended('/events');
+            if (auth()->user()->role === 'admin') {
+                return redirect('/admin/events');
+            }
+            return redirect('/events');
         }
+
 
         return back()->withErrors([
             'email' => 'Ces identifiants ne correspondent pas a nos enregistrements.',
