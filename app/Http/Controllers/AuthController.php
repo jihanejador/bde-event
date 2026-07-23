@@ -20,5 +20,9 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/events');
         }
+
+        return back()->withErrors([
+            'email' => 'Ces identifiants ne correspondent pas a nos enregistrements.',
+        ])->onlyInput('email');
     }
 }
