@@ -2,17 +2,14 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Reservation;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class ReservationSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
         $etudiant = User::where('role', 'etudiant')->first();
@@ -22,6 +19,7 @@ class ReservationSeeder extends Seeder
             Reservation::create([
                 'user_id' => $etudiant->id,
                 'event_id' => $event->id,
+                'numero_reservation' => 'BDE-2026-' . strtoupper(Str::random(6)),
             ]);
         }
     }
