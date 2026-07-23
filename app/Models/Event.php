@@ -20,6 +20,7 @@ class Event extends Model
         'user_id'
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
