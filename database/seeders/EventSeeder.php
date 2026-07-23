@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Event;
+use App\Models\User;
 
 class EventSeeder extends Seeder
 {
@@ -31,7 +32,7 @@ class EventSeeder extends Seeder
                 'date' => '2026-10-05',
                 'heure' => '14:00',
                 'lieu' => 'Salle Informatique 3',
-                'prix' => 0.00, 
+                'prix' => 0.00,
                 'jauge_max' => 16,
                 'user_id' => $admin->id,
             ]);
