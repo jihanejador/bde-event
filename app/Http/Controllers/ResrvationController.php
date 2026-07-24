@@ -36,5 +36,8 @@ class ResrvationController extends Controller
             'event_id' => $event->id,
             'numero_reservation' => 'BDE-2026-' . strtoupper(Str::random(6)),
         ]);
+
+        return back()->with('success', 'Inscription reussie ! Votre place est reservee.');
+        
     }
 }
