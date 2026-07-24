@@ -70,4 +70,9 @@ class EventController extends Controller
 
         return redirect()->route('admin.events.index')->with('success', 'Événement modifié avec succès !');
     }
+    public function destroy(Event $event)
+    {
+        $event->delete();
+        return back()->with('success', 'Événement supprimé avec succès !');
+    }
 }
