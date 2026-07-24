@@ -29,7 +29,12 @@ class ResrvationController extends Controller
         }
         if ($event->reservation()->count() >= $event->jauge_max){
             return back()->with('error', 'Desole, cet evenement est complet !');
-            
+
         }
+        Reservation::create([
+            'user_id' => auth()->id(),
+            'event_id' => $event->id,
+            'numero_reservation' => 'BDE-2026-' . strtoupper(Str::random(6)),
+        ]);
     }
 }
