@@ -13,10 +13,15 @@
                 <h1 class="text-2xl font-bold text-gray-800">Événements BDE</h1>
                 <p class="text-gray-600">Bienvenue, {{ auth()->user()->nom }}</p>
             </div>
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Déconnexion</button>
-            </form>
+            <div class="flex gap-4">
+                <a href="{{ route('tickets.index') }}" class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700 transition flex items-center gap-2 font-medium">
+                    🎟️ Mes Billets
+                </a>
+                <form action="{{ route('logout') }}" method="POST">
+                    @csrf
+                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition">Déconnexion</button>
+                </form>
+            </div>
         </div>
 
         @if(session('success'))
@@ -83,4 +88,4 @@
 
     </div>
 </body>
-</html>gitg
+</html>
