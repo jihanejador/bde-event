@@ -11,5 +11,11 @@ class ResrvationController extends Controller
 {
     public function index(){
         $events = Event::withCount('reservations')->latest()->get();
+        $userReservations = Reservation::where('user_id', auth()->id())
+            ->pluck('event_id')
+            ->toArray();
+
+        return view('student.events.index', compact('events', 'userReservations'));
+        
     }
 }
