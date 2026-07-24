@@ -24,4 +24,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/events', [EventController::class, 'adminIndex'])->name('admin.events.index');
     Route::get('/admin/events/create', [EventController::class, 'create'])->name('admin.events.create');
     Route::post('/admin/events', [EventController::class, 'store'])->name('admin.events.store');
+    Route::get('/events', [ReservationController::class, 'index'])->name('events.index');
+    Route::post('/events/{event}/reserve', [ReservationController::class, 'store'])->name('events.reserve');
 });
