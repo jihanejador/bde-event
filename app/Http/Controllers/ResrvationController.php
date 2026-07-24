@@ -40,4 +40,12 @@ class ResrvationController extends Controller
         return back()->with('success', 'Inscription reussie ! Votre place est reservee.');
 
     }
+    public function destroy(Event $event)
+    {
+        Reservation::where('user_id', auth()->id())
+            ->where('event_id', $event->id)
+            ->delete();
+
+        return back()->with('success', 'Réservation annulée avec succès !');
+    }
 }
