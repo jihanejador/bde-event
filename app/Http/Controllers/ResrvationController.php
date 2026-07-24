@@ -27,5 +27,9 @@ class ResrvationController extends Controller
         if ($alreadyReserved){
             return back()->with('error', 'Vous etes deja inscrit a cet evenement !');
         }
+        if ($event->reservation()->count() >= $event->jauge_max){
+            return back()->with('error', 'Desole, cet evenement est complet !');
+            
+        }
     }
 }
