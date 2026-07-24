@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ResrvationController; 
+use App\Http\Controllers\ResrvationController;
 use App\Http\Controllers\TicketController;
 
 Route::get('/', function () {
@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/events', [ResrvationController::class, 'index'])->name('events.index');
     Route::post('/events/{event}/reserve', [ResrvationController::class, 'store'])->name('events.reserve');
+    Route::delete('/events/{event}/cancel', [ResrvationController::class, 'destroy'])->name('events.cancel');
 
 
     Route::get('/my-tickets', [TicketController::class, 'index'])->name('tickets.index');
@@ -29,4 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/events', [EventController::class, 'adminIndex'])->name('admin.events.index');
     Route::get('/admin/events/create', [EventController::class, 'create'])->name('admin.events.create');
     Route::post('/admin/events', [EventController::class, 'store'])->name('admin.events.store');
+    Route::get('/admin/events/{event}/edit', [EventController::class, 'edit'])->name('admin.events.edit');
+    Route::put('/admin/events/{event}', [EventController::class, 'update'])->name('admin.events.update');   
+    Route::delete('/admin/events/{event}', [EventController::class, 'destroy'])->name('admin.events.destroy');
 });
