@@ -20,7 +20,7 @@
         </div>
 
         @if(session('success'))
-            <div class="bg-green-100 text-green-700 p-3 rounded mb-4">{{ session('success') }}</div>
+            <div class="bg-green-100 text-green-700 p-3 rounded mb-4 font-semibold">{{ session('success') }}</div>
         @endif
 
         <table class="w-full text-left border-collapse">
@@ -33,6 +33,7 @@
                     <th class="p-3 border">Jauge Max</th>
                     <th class="p-3 border">Inscrits</th>
                     <th class="p-3 border">Places Restantes</th>
+                    <th class="p-3 border text-center">Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,10 +50,24 @@
                                 {{ $event->places_restantes }} places
                             </span>
                         </td>
+                        <td class="p-3">
+                            <div class="flex items-center justify-center gap-2">
+                                <a href="{{ route('admin.events.edit', $event->id) }}" class="bg-yellow-500 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-yellow-600 transition">
+                                    Modifier
+                                </a>
+                                <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" onsubmit="return confirm('Voulez-vous vraiment supprimer cet événement ?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="bg-red-600 text-white px-3 py-1 rounded text-xs font-semibold hover:bg-red-700 transition">
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="p-4 text-center text-gray-500">Aucun événement disponible.</td>
+                        <td colspan="8" class="p-4 text-center text-gray-500">Aucun événement disponible.</td>
                     </tr>
                 @endforelse
             </tbody>
