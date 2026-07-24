@@ -50,4 +50,8 @@ class EventController extends Controller
         ]);
         return redirect('/admin/events')->with('success', 'Événement créé !');
     }
+
+    public function edit(Event $event){
+        return view('admin.events.edit', compact('event'));
+    }
 }
