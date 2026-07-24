@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ResrvationController;
+use App\Http\Controllers\ResrvationController; 
 use App\Http\Controllers\TicketController;
 
 Route::get('/', function () {
@@ -18,13 +18,15 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::get('/events', function () {
-        return "Bienvenue " . auth()->user()->nom . " (" . auth()->user()->role . ") !";
-    })->name('events.index');
+
+    Route::get('/events', [ResrvationController::class, 'index'])->name('events.index');
+    Route::post('/events/{event}/reserve', [ResrvationController::class, 'store'])->name('events.reserve');
+
+
+    Route::get('/my-tickets', [TicketController::class, 'index'])->name('tickets.index');
+
 
     Route::get('/admin/events', [EventController::class, 'adminIndex'])->name('admin.events.index');
     Route::get('/admin/events/create', [EventController::class, 'create'])->name('admin.events.create');
     Route::post('/admin/events', [EventController::class, 'store'])->name('admin.events.store');
-    Route::get('/events', [ResrvationController::class, 'index'])->name('events.index');
-    Route::post('/events/{event}/reserve', [ResrvationController::class, 'store'])->name('events.reserve');
 });
