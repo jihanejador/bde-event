@@ -16,6 +16,16 @@ class ResrvationController extends Controller
             ->toArray();
 
         return view('student.events.index', compact('events', 'userReservations'));
-        
+
+    }
+
+    public function store(Request $request, Event $event){
+        $alreadyReserved = Reservation::where('user_id', auth()->id())
+            ->where('events_id', $event->id)
+            ->exists();
+
+        if ($alreadyReserved){
+            return back()->with('error', 'Vous etes deja inscrit a cet evenement !');
+        }
     }
 }
