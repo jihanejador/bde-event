@@ -21,13 +21,13 @@ class ResrvationController extends Controller
 
     public function store(Request $request, Event $event){
         $alreadyReserved = Reservation::where('user_id', auth()->id())
-            ->where('events_id', $event->id)
+            ->where('event_id', $event->id)
             ->exists();
 
         if ($alreadyReserved){
             return back()->with('error', 'Vous etes deja inscrit a cet evenement !');
         }
-        if ($event->reservation()->count() >= $event->jauge_max){
+        if ($event->reservations()->count() >= $event->jauge_max){
             return back()->with('error', 'Desole, cet evenement est complet !');
 
         }
@@ -38,6 +38,6 @@ class ResrvationController extends Controller
         ]);
 
         return back()->with('success', 'Inscription reussie ! Votre place est reservee.');
-        
+
     }
 }

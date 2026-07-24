@@ -3,8 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
-use App\Http\Controllers\ReservationController;
-
+use App\Http\Controllers\ResrvationController;
 Route::get('/', function () {
     return redirect()->route('login');
 });
@@ -24,6 +23,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/events', [EventController::class, 'adminIndex'])->name('admin.events.index');
     Route::get('/admin/events/create', [EventController::class, 'create'])->name('admin.events.create');
     Route::post('/admin/events', [EventController::class, 'store'])->name('admin.events.store');
-    Route::get('/events', [ReservationController::class, 'index'])->name('events.index');
-    Route::post('/events/{event}/reserve', [ReservationController::class, 'store'])->name('events.reserve');
+    Route::get('/events', [ResrvationController::class, 'index'])->name('events.index');
+    Route::post('/events/{event}/reserve', [ResrvationController::class, 'store'])->name('events.reserve');
 });
