@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\Event;
+use App\Models\Reservation;
+use Illuminate\Support\Str;
+
+class ResrvationController extends Controller
+{
+    public function index(){
+        $events = Event::withCount('reservations')->latest()->get();
+        $userReservations = Reservation::where('user_id', auth()->id())
+            ->pluck('event_id')
+            ->toArray();
+
+        return view('student.events.index', compact('events', 'userReservations'));
+
+    }
+
+    public function store(Request $request, Event $event){
+        $alreadyReserved = Reservation::where('user_id', auth()->id())
+            ->where('event_id', $event->id)
+            ->exists();
+
+        if ($alreadyReserved){
+            return back()->with('error', 'Vous etes deja inscrit a cet evenement !');
+        }
+        if ($event->reservations()->count() >= $event->jauge_max){
+            return back()->with('error', 'Desole, cet evenement est complet !');
+
+        }
+        Reservation::create([
+            'user_id' => auth()->id(),
+            'event_id' => $event->id,
+            'numero_reservation' => 'BDE-2026-' . strtoupper(Str::random(6)),
+        ]);
+
+        return back()->with('success', 'Inscription reussie ! Votre place est reservee.');
+
+    }
+}
