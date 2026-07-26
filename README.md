@@ -75,3 +75,4 @@ resources/
 ![alt text](usecase.png)
 c:\Users\jihan\OneDrive\Images\diagramme de class.png
 c:\Users\jihan\OneDrive\Images\ERD.png
+auteur : jihane jador;
