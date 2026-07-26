@@ -6,38 +6,58 @@
     <title>Connexion - BDE Events</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center h-screen">
+<body class="bg-gradient-to-br from-pink-50 via-sky-50 to-pink-100 text-slate-700 min-h-screen font-sans flex items-center justify-center p-6">
+    <div class="bg-white/90 backdrop-blur-md p-8 md:p-10 rounded-3xl border border-pink-200/60 shadow-sm w-full max-w-md">
 
-    <div class="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Connexion BDE</h2>
+        <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-gradient-to-tr from-pink-300 to-sky-300 rounded-full flex items-center justify-center text-2xl mx-auto mb-3 shadow-sm">
 
-        @if ($errors->any())
-            <div class="bg-red-100 text-red-600 p-3 rounded mb-4 text-sm">
-                {{ $errors->first() }}
+            </div>
+            <h1 class="text-2xl font-black bg-gradient-to-r from-pink-400 to-sky-400 bg-clip-text text-transparent">
+                BDE Events 
+            </h1>
+            <p class="text-slate-400 text-xs mt-1">Connectez-vous à votre espace étudiant / admin</p>
+        </div>
+
+        @if(session('status'))
+            <div class="bg-sky-100/80 border border-sky-200 text-sky-700 p-3 rounded-2xl mb-6 text-xs font-medium text-center">
+                {{ session('status') }}
             </div>
         @endif
 
-        <form action="{{ route('login') }}" method="POST">
+        @if($errors->any())
+            <div class="bg-pink-100/80 border border-pink-200 text-pink-700 p-3 rounded-2xl mb-6 text-xs font-medium text-center">
+                Identifiants incorrects. Veuillez réessayer.
+            </div>
+        @endif
+
+        <form action="{{ route('login') }}" method="POST" class="space-y-4 text-sm font-medium">
             @csrf
 
-            <div class="mb-4">
-                <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
-                <input type="email" name="email" id="email" value="{{ old('email') }}" required
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div>
+                <label class="block text-slate-600 font-bold mb-1.5 text-xs uppercase tracking-wider">Adresse E-mail</label>
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="etudiant@ecole.ma" required autofocus
+                       class="w-full bg-pink-50/30 border border-pink-200 p-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-pink-300 transition text-slate-700 placeholder-slate-300">
             </div>
 
-            <div class="mb-6">
-                <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Mot de passe</label>
-                <input type="password" name="password" id="password" required
-                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div>
+                <label class="block text-slate-600 font-bold mb-1.5 text-xs uppercase tracking-wider">Mot de passe</label>
+                <input type="password" name="password" placeholder="••••••••" required
+                       class="w-full bg-pink-50/30 border border-pink-200 p-3.5 rounded-2xl focus:outline-none focus:ring-2 focus:ring-pink-300 transition text-slate-700 placeholder-slate-300">
             </div>
 
-            <button type="submit"
-                class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200">
-                Se connecter
+            <div class="flex items-center justify-between text-xs pt-1">
+                <label class="flex items-center gap-2 cursor-pointer text-slate-500">
+                    <input type="checkbox" name="remember" class="rounded text-pink-400 focus:ring-pink-300 border-pink-200">
+                    Se souvenir de moi
+                </label>
+            </div>
+
+            <button type="submit" class="w-full bg-gradient-to-r from-pink-300 via-pink-400 to-sky-300 hover:opacity-90 text-white py-3.5 rounded-full font-bold text-sm shadow-sm transition-all duration-300 mt-2">
+                Se Connecter
             </button>
         </form>
-    </div>
 
+    </div>
 </body>
 </html>
