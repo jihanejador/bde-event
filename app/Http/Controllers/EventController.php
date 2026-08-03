@@ -54,22 +54,29 @@ class EventController extends Controller
     public function edit(Event $event){
         return view('admin.events.edit', compact('event'));
     }
-    public function update(Request $request, Event $event)
-    {
-        $request->validate([
-            'titre' => 'required|string|max:255',
-            'description' => 'required|string',
-            'date' => 'required|date',
-            'heure' => 'required',
-            'lieu' => 'required|string|max:255',
-            'prix' => 'required|numeric|min:0',
-            'jauge_max' => 'required|integer|min:1',
-        ]);
+    public function update(Request $request, Event $event){
+        if ($event()->'jauge_max' === 'numero_reservation')
+         {
+            $request->validate([
+                'titre' => 'required|string|max:255',
+                'description' => 'required|string',
+                'date' => 'required|date',
+                'heure' => 'required',
+                'lieu' => 'required|string|max:255',
+                'prix' => 'required|numeric|min:0',
+                'jauge_max' => 'required|integer|min:1',
+            ]);
 
-        $event->update($request->all());
 
-        return redirect()->route('admin.events.index')->with('success', 'Événement modifié avec succès !');
+            $event->update($request->all());
+
+            return redirect()->route('admin.events.index')->with('success', 'Événement modifié avec succès !');
+        }
+         else if($event()->'jauge_max' !== 'numero_reservation'){
+        return (403, 'aucun acces de modifier le jauge max !')
+        }
     }
+
     public function destroy(Event $event)
     {
         $event->delete();
