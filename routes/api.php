@@ -12,7 +12,7 @@ Route::get('/events', [EventController::class, 'index']);
 Route::get('.events/{id}', [EventController::class. 'show']);
 
 
-Route::middleware('auth::sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/events/{id}/book', [ReservationController::class, 'store']);

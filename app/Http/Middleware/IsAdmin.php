@@ -1,18 +1,21 @@
 <?php
 
-namespace App\Http\Middeware;
+namespace App\Http\Middleware;
 
-closure;
+use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsAdmin {
-    public function handle(Request $request, Closure $next): Response{
-        if($request->user() && $request->user()->role === 'admin'){
-            return $next($request);
+class IsAdmin
+{
+    public function handle(Request $request, Closure $next): Response
+    {
+        if (!$request->user() || $request->user()->role !== 'admin') {
+            return response()->json([
+                'message' => 'Accès refusé. Réservé aux administrateurs.'
+            ], 403);
         }
-        return response()->json([
-            'message'=>'Acces refuse : Espave reserve exclusivement aux administrateur du BDE.'
-        ], 403);
+
+        return $next($request);
     }
 }

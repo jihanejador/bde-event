@@ -15,12 +15,13 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required',
         ]);
-        if (!Auth::attempt($request->only('email', 'password'))){
-            return response()->json([
-                'message' => 'Identifiants incorrects'
-            ], 401);
-        }
-        $user = User::where('email', $request->email)->firstOrFail();
+        $user = User::where('email', $request->email)->first();
+
+    if (!$user || !Hash::check($request->password, $user->password)) {
+        return response()->json([
+            'message' => 'Identifiants incorrects'
+        ], 401);
+    }
 
         $token = $user->createToken('auth_token')->plainTextToken;
 
