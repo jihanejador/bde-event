@@ -4,7 +4,7 @@ import api from './api/axios';
 import Login from './pages/Login';
 import AdminCreateEvent from './pages/AdminCreateEvent';
 import AdminDashboard from './pages/AdminDashboard';
-import MyTickets from './pages/MyTickets';
+import MyTickets from "./pages/MyTicket";
 
 function Navbar() {
   const user = JSON.parse(localStorage.getItem('user')) || null;
