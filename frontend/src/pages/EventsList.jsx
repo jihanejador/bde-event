@@ -107,6 +107,7 @@ export default function EventsList() {
                   <div className="flex items-center gap-3 text-sm text-slate-400">
                     <span>📅 {event.date} {event.heure ? `à ${event.heure}` : ''}</span>
                     <span>📍 {event.lieu || 'Non spécifié'}</span>
+                    <span>💰 {event.prix == 0 || !event.prix ? 'Gratuit' : `${event.prix} DH`}</span>
                   </div>
 
                   <p className="text-lg font-medium text-slate-200">{event.titre || event.description}</p>
