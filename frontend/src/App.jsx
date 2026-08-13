@@ -14,8 +14,14 @@ function ProtectedRoute({ children, allowedRole }) {
     return <Navigate to="/login" replace />;
   }
 
-  if (allowedRole && user?.role !== allowedRole) {
+  const isAdmin = user?.role === 'admin' || user?.role_id === 1;
+
+  if (allowedRole === 'admin' && !isAdmin) {
     return <Navigate to="/" replace />;
+  }
+
+  if (!allowedRole && isAdmin) {
+    return <Navigate to="/admin/stats" replace />;
   }
 
   return children;
@@ -26,6 +32,8 @@ function Navbar() {
   const user = JSON.parse(localStorage.getItem('user')) || null;
   const navigate = useNavigate();
 
+  const isAdmin = user?.role === 'admin' || user?.role_id === 1;
+
   const handleLogout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -34,26 +42,37 @@ function Navbar() {
 
   return (
     <nav className="bg-slate-800 border-b border-slate-700 px-6 py-4 flex justify-between items-center text-white">
-      <Link to="/" className="text-xl font-bold text-indigo-400">🚀 BDE Events</Link>
+      <Link to={isAdmin ? "/admin/stats" : "/"} className="text-xl font-bold text-indigo-400">
+        🚀 {isAdmin ? "Admin Panel" : "BDE Events"}
+      </Link>
+      
       <div className="flex gap-4 items-center text-sm">
-        {token && (
+        
+        {}
+        {token && !isAdmin && (
           <>
             <Link to="/" className="hover:text-indigo-400">Événements</Link>
             <Link to="/profile/tickets" className="hover:text-indigo-400">Mes Tickets</Link>
           </>
         )}
 
-        {token && user?.role === 'admin' && (
-          <div className="flex gap-2 border-l border-slate-700 pl-4">
-            <Link to="/admin/stats" className="bg-indigo-600/20 text-indigo-300 px-3 py-1 rounded-lg hover:bg-indigo-600/30">Dashboard Admin</Link>
-            <Link to="/admin/events/create" className="bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-500">+ Créer Événement</Link>
+        {}
+        {token && isAdmin && (
+          <div className="flex gap-2">
+            <Link to="/admin/stats" className="bg-indigo-600/20 text-indigo-300 px-3 py-1 rounded-lg hover:bg-indigo-600/30">
+              Dashboard Admin
+            </Link>
+            <Link to="/admin/events/create" className="bg-indigo-600 text-white px-3 py-1 rounded-lg hover:bg-indigo-500">
+              + Créer Événement
+            </Link>
           </div>
         )}
 
+        {}
         {token ? (
           <button 
             onClick={handleLogout} 
-            className="text-red-400 hover:text-red-300 font-semibold pl-2 transition duration-150"
+            className="text-red-400 hover:text-red-300 font-semibold pl-2 border-l border-slate-700 transition duration-150"
           >
             Déconnexion
           </button>

@@ -18,6 +18,7 @@ export default function AdminDashboard() {
     jauge_max: '',
   });
 
+
   const fetchEvents = async () => {
     try {
       const response = await api.get('/events');
