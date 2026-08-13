@@ -12,7 +12,7 @@ export default function AdminCreateEvent() {
     heure: '',
     lieu: '',
     prix: '',
-    jauge_max: '', 
+    jauge_max: '',
   });
 
   const [error, setError] = useState('');
@@ -39,7 +39,7 @@ export default function AdminCreateEvent() {
     }
 
     try {
-      const response = await api.post('/events', formData, {
+      await api.post('/events', formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
