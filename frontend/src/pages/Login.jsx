@@ -26,7 +26,7 @@ export default function Login() {
     try {
       const response = await api.post('/login', formData);
       
-      // 🔑 قراءة الـ Token والـ User
+      
       const token = response.data.token || response.data.access_token;
       const userData = response.data.user;
 
@@ -34,17 +34,17 @@ export default function Login() {
         throw new Error("Token non reçu du serveur.");
       }
 
-      // 1️⃣ حفظ الـ Token والـ User فـ localStorage
+      
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(userData));
 
-      // 2️⃣ التحقق واش الأدمن
+      
       const isAdmin = 
         userData?.role?.toString().toLowerCase() === 'admin' || 
         userData?.role_id === 1 ||
         userData?.is_admin === true;
 
-      // 3️⃣ التوجيه المباشر
+      
       if (isAdmin) {
         navigate('/admin/stats');
       } else {

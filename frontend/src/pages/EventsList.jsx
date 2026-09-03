@@ -10,7 +10,7 @@ export default function EventsList() {
   const [success, setSuccess] = useState('');
   const [bookedEvents, setBookedEvents] = useState([]);
 
-  // قراءة بيانات المستخدم والتوكن
+  
   const storedUser = localStorage.getItem('user');
   const user = storedUser ? JSON.parse(storedUser) : null;
   const token = localStorage.getItem('token');
